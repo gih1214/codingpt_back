@@ -1,0 +1,12 @@
+# 환경 설정 파일
+.env
+
+# node 모듈
+node_modules/
+
+# 로그 파일
+*.log
+
+# IDE/OS 관련 캐시
+.DS_Store
+*.swp
