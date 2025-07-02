@@ -1,0 +1,52 @@
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define('User', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    google_id: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    refresh_token: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    profile_img: {
+      type:
+      DataTypes.STRING
+    },
+    nickname: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    xp: {
+      type: DataTypes.INTEGER, allowNull: false,
+      defaultValue: 0
+    },
+    heart: {
+      type: DataTypes.INTEGER, allowNull: false,
+      defaultValue: 5
+    },
+  }, {
+    tableName: 'user',
+    timestamps: false,
+  });
+
+  User.associate = (models) => {
+    User.hasMany(models.review, { foreignKey: 'user_id' });
+    User.hasMany(models.myclass, { foreignKey: 'user_id' });
+    User.hasMany(models.studyheatmaplog, { foreignKey: 'user_id' });
+  };
+
+  return User;
+};

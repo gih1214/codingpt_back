@@ -1,16 +1,16 @@
 const express = require('express');
-const sequelize = require('./db');
-const Class = require('./models/class');
+const models = require('./models'); // models/index.js에서 모든 모델 + sequelize 로딩됨
+const { sequelize, class: classModel } = models; // 소문자 'class' 사용 주의
 
 const app = express();
 app.use(express.json());
 
 const PORT = 3000;
 
-// 📌 전체 클래스 조회
+// 📌 전체 클래스 조회 API
 app.get('/classes', async (req, res) => {
   try {
-    const classes = await Class.findAll();
+    const classes = await classModel.findAll();
     res.json(classes);
   } catch (err) {
     console.error('❌ 클래스 조회 오류:', err);
@@ -24,7 +24,7 @@ app.listen(PORT, async () => {
     await sequelize.authenticate();
     console.log('✅ DB 연결 성공');
 
-    await sequelize.sync(); // 테이블 자동 생성
+    await sequelize.sync(); // 자동 테이블 생성 (옵션: { force: false } )
     console.log(`🚀 서버 실행 중: http://localhost:${PORT}`);
   } catch (err) {
     console.error('❌ DB 연결 실패:', err);

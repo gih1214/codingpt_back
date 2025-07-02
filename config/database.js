@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config();
+require('dotenv').config(); // .env 파일 불러오기
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
